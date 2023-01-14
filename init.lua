@@ -1,5 +1,5 @@
 local this = {
-  ["module_directory"] = ".yanw",
+  ["module_directory"] = ".yawn",
   ["main_file_name"] = "workspace.lua",
 }
 
