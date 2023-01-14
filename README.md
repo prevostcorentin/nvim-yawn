@@ -2,7 +2,7 @@
 
 YAWN stands for Yet Another Workspace for Neovim.
 
-This is my own implementation of a directory scoped project workspace. It was designed as a solution for [`nvim-dap`](https://github.com/mfussenegger/nvim-dap) and [`nvim-lspconfig`](https://github.com/neovim/nvim-lspconfig)/[`pyright`](https://github.com/microsoft/pyright) to use project-scoped Python virtual environments rather than system ones.
+This is my own implementation of a directory scoped project workspace. It was designed as a solution for [`nvim-dap`](https://github.com/mfussenegger/nvim-dap) and [`nvim-lspconfig`](https://github.com/neovim/nvim-lspconfig)/[`pyright`](https://github.com/microsoft/pyright) to use project-scoped Python virtual environments rather than system default version.
 
 ## Installation
 
@@ -58,3 +58,7 @@ local workspace = require("custom.features.yawn")
 workspace.module_directory = ".yawn" -- default directory where workspace.lua resides
 workspace.main_file_name = "workspace.lua" -- default workspace file name
 ```
+
+## Limitations
+
+Only Linux is supported for the moment. Windows support will be added as soon as I will need it to do my day-to-day tasks.
