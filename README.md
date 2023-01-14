@@ -6,11 +6,7 @@ This is my own implementation of a directory scoped project workspace. It was de
 
 ## Installation
 
-This can not yet be installed as a plug-in. Put this file in a directory reachable somewhere in neovim `lua` PATH and `require` it. 
-
-```bash
-[.config/nvim/lua/custom/features] > git clone https://github.com/prevostcorentin/nvim-yawn yawn
-```
+Install it as a plugin using your favorite package manager.
 
 ## Example
 
@@ -18,22 +14,19 @@ This can not yet be installed as a plug-in. Put this file in a directory reachab
 
 Lua code
 ```lua
-local do_find_python_executable = function()
-  local workspace = require("custom.features.yawn").require()
-  local python_executable = "python"
-  if workspace.python and workspace.python.executable then
-    python_executable = workspace.python.executable
-  end
-  return python_executable
-end
+local yawn = require("yawn")
 
 dap.configurations.python = {
   {
     type = "python",
     request = "launch",
     name = "Launch",
-    program = do_find_debugee,
-    pythonPath = do_find_python_executable,
+    program = function()
+      return yawn.get("python.debug.debugee", "${file}")
+    end,
+    pythonPath = function()
+      return yawn.get("python.interpreter", "python")
+    end
   },
 }
 
@@ -44,21 +37,57 @@ dap.configurations.python = {
 ```lua
 return {
   ["python"] = {
-    ["executable"] = "./venv/bin/python3",
+    ["interpreter"] = "./venv/bin/python3",
+  },
+}
+```
+
+`dap.configurations.python` will result in:
+```lua
+{
+  [...]
+  program = function()
+    return yawn.get("python.debug.debugee", "${file}")
+  end,
+  pythonPath = function()
+    return yawn.get("python.interpreter", "python")
+  end
+}
+```
+
+### `pyright` with `nvim-lspconfig`
+
+Below configuration will update pyright LSP server configuration to use the virtual environment if it exists.
+
+```lua
+local yawn = require "yawn"
+
+lspconfig.pyright.setup {
+  on_attach = function(client, bufnr)
+    on_configure_client_buffer(client, bufnr)
+    if yawn.python.has_venv() then
+      client.config.settings.python.pythonPath = yawn.python.find_interpreter()
+      client.config.settings.python.venvPath = yawn.python.find_venv()
+      client.notify "workspace/didChangeConfiguration"
+    end
+  end,
+  settings = {
+    python = {
+      analysis = {
+        autoSearchPaths = true,
+        diagnosticMode = "workspace",
+        useLibraryCodeForTypes = true,
+        typeCheckingMode = "basic",
+      },
+    },
   },
 }
 ```
 
 ## Configuration
 
-By default, the workspace file should be stored in `[project directory]/.yawn/workspace.lua`. The settings exposed below can be modified.
+The workspace file should be stored in `[project directory]/.yawn/workspace.lua`. Those are not modifiable.
 
-```lua
-local workspace = require("custom.features.yawn")
-workspace.module_directory = ".yawn" -- default directory where workspace.lua resides
-workspace.main_file_name = "workspace.lua" -- default workspace file name
-```
+## In the foreseeable future
 
-## Limitations
-
-Only Linux is supported for the moment. Windows support will be added as soon as I will need it to do my day-to-day tasks.
+- [] NTFS support
