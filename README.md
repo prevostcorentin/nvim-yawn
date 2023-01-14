@@ -14,7 +14,7 @@ This can not yet be installed as a plug-in. Put this file in a directory reachab
 
 ## Example
 
-### `python-dap` executable
+### `python-dap` Python executable
 
 Lua code
 ```lua
