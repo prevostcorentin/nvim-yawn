@@ -1,6 +1,6 @@
-# nvim-yanw
+# nvim-yawn
 
-YANW stands for Yet Another NeoVim Workspace.
+YAWN stands for Yet Another Workspace for Neovim.
 
 This is my own implementation of a directory scoped project workspace. It was designed as a solution for [`nvim-dap`](https://github.com/mfussenegger/nvim-dap) and [`nvim-lspconfig`](https://github.com/neovim/nvim-lspconfig)/[`pyright`](https://github.com/microsoft/pyright) to use project-scoped Python virtual environments rather than system ones.
 
