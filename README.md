@@ -6,7 +6,11 @@ This is my own implementation of a directory scoped project workspace. It was de
 
 ## Installation
 
-This can not be installed as a plug-in. Put this file in a directory reachable somewhere in neovim `lua` PATH and `require` it. 
+This can not yet be installed as a plug-in. Put this file in a directory reachable somewhere in neovim `lua` PATH and `require` it. 
+
+```bash
+[.config/nvim/lua/custom/features] > git clone https://github.com/prevostcorentin/nvim-yanw yanw
+```
 
 ## Example
 

@@ -1,7 +1,6 @@
 local this = {
-  ["debug"] = false,
-  ["module_directory"] = ".nvim",
-  ["settings_file_name"] = "workspace.lua",
+  ["module_directory"] = ".yanw",
+  ["main_file_name"] = "workspace.lua",
 }
 
 local __file_exists = function(file_path)
@@ -22,7 +21,7 @@ end
 local __build_settings_file_path = function()
   local current_working_directory = __get_current_working_directory()
   local module_directory = current_working_directory .. "/" .. this.module_directory
-  local settings_file_path = module_directory .. "/" .. this.settings_file_name
+  local settings_file_path = module_directory .. "/" .. this.main_file_name
   return settings_file_path
 end
 
