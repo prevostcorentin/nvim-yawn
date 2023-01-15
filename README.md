@@ -46,12 +46,8 @@ return {
 ```lua
 {
   [...]
-  program = function()
-    return yawn.get("python.debug.debugee", "${file}")
-  end,
-  pythonPath = function()
-    return yawn.get("python.interpreter", "python")
-  end
+  program = "${file}"
+  pythonPath = "./venv/bin/python3"
 }
 ```
 
