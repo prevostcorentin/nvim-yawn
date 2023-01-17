@@ -59,26 +59,38 @@ Below configuration will update pyright LSP server configuration to use the virt
 local yawn = require "yawn"
 
 lspconfig.pyright.setup {
-  on_attach = function(client, bufnr)
-    on_configure_client_buffer(client, bufnr)
+  on_init = function(client, _)
     if yawn.python.has_venv() then
       client.config.settings.python.pythonPath = yawn.python.find_interpreter()
       client.config.settings.python.venvPath = yawn.python.find_venv()
       client.notify "workspace/didChangeConfiguration"
     end
   end,
-  settings = {
-    python = {
-      analysis = {
-        autoSearchPaths = true,
-        diagnosticMode = "workspace",
-        useLibraryCodeForTypes = true,
-        typeCheckingMode = "basic",
-      },
-    },
-  },
+  [...]
 }
 ```
+
+## Integrations
+
+### Python
+
+`yawn.python.has_venv()`
+: Detects whether or not a virtual environment exists in the current directory
+: If `python.venv.name` is defined, then the method assume that a virtual environment exist without checking if the mentioned directory exists. This value defaults to `venv`.
+: If `python.venv.name` is not defined, the method will check if the `venv` directory is structured as a typical python virtual environment one. (is there an `activate` file under `venv/bin`) 
+
+`yawn.python.find_interpreter()`
+: Find the interpreter whether a virtual environment is defined or not
+: If a virtual environment is defined **and** `python.interpreter` is defined in `.yawn/workspace.lua` then the virtual environment directory will be suffixed by `python.interpreter`
+: If no virtual environment is defined, `python.interpreter` will not be joined with any preceding path.
+: `python.interpreter` defaults to "python"
+
+`yawn.python.find_venv()`
+: Detects whether there is a virtual environment or not in the current working directory.
+: If no virtual environment related options are defined in `.yawn/workspace.lua`, it assumes the following defaults:
+* `python.interpreter` = "python"
+* `python.venv.name` = "venv"
+: Raises an error if the interpreter or the virtual environment directory does not exist
 
 ## Configuration
 

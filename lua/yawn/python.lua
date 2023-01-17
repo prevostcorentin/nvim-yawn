@@ -47,7 +47,7 @@ function M.find_venv()
 	else
 		assert(false, "No virtual environment defined")
 	end
-	local venv_directory = yawn.filesystem.join_paths({ yawn.workspace.get_directory(), venv_name })
+	local venv_directory = yawn.filesystem.join_paths({ yawn.workspace.get("directory"), venv_name })
 	return venv_directory
 end
 
@@ -57,7 +57,7 @@ function internal._has_user_venv()
 end
 
 function internal._has_default_venv()
-	local default_venv_directory = yawn.filesystem.join_paths({ yawn.workspace.get_directory(), "venv" })
+	local default_venv_directory = yawn.filesystem.join_paths({ yawn.workspace.get("directory"), "venv" })
 	local activate_script_path =
 		yawn.filesystem.join_paths({ default_venv_directory, internal.constants.ACTIVATE_SCRIPT_PATH })
 	local is_existing_directory = yawn.filesystem.is_directory(default_venv_directory)
@@ -72,7 +72,7 @@ end
 function internal._find_user_venv_interpreter()
 	local interpreter_name = yawn.workspace.get("python.interpreter", "python")
 	local interpreter_path = yawn.filesystem.join_paths({
-		yawn.workspace.get_directory(),
+		yawn.workspace.get("directory"),
 		yawn.workspace.get("python.venv.name"),
 		"bin",
 		interpreter_name,
@@ -83,7 +83,7 @@ end
 function internal._find_default_venv_interpreter()
 	local interpreter_name = yawn.workspace.get("python.interpreter", "python")
 	local default_venv_interpreter_path = yawn.filesystem.join_paths({
-		yawn.workspace.get_directory(),
+		yawn.workspace.get("directory"),
 		internal.constants.DEFAULT_VENV_NAME,
 		"bin",
 		interpreter_name,
