@@ -75,22 +75,20 @@ lspconfig.pyright.setup {
 ### Python
 
 `yawn.python.has_venv()`
-: Detects whether or not a virtual environment exists in the current directory
-: If `python.venv.name` is defined, then the method assume that a virtual environment exist without checking if the mentioned directory exists. This value defaults to `venv`.
-: If `python.venv.name` is not defined, the method will check if the `venv` directory is structured as a typical python virtual environment one. (is there an `activate` file under `venv/bin`) 
+
+Detects whether or not a virtual environment exists in the current directory. If `python.venv.name` is defined, it is assumed that a virtual environment exists. If `python.venv.name` is not defined, a virtual environment will be considered set if it follow the typical structure of a `venv`.
 
 `yawn.python.find_interpreter()`
-: Find the interpreter whether a virtual environment is defined or not
-: If a virtual environment is defined **and** `python.interpreter` is defined in `.yawn/workspace.lua` then the virtual environment directory will be suffixed by `python.interpreter`
-: If no virtual environment is defined, `python.interpreter` will not be joined with any preceding path.
-: `python.interpreter` defaults to "python"
+
+Find the interpreter whether a virtual environment is defined or not. If a virtual environment is defined **and** `python.interpreter` is defined in `.yawn/workspace.lua` then the virtual environment directory will be suffixed by `python.interpreter`. If no virtual environment is defined, `python.interpreter` will not be joined without any preceding path. `python.interpreter` defaults to "python"
 
 `yawn.python.find_venv()`
-: Detects whether there is a virtual environment or not in the current working directory.
-: If no virtual environment related options are defined in `.yawn/workspace.lua`, it assumes the following defaults:
+
+Detects whether there is a virtual environment or not in the current working directory. If no virtual environment related options are defined in `.yawn/workspace.lua`, it assumes the following default values:
 * `python.interpreter` = "python"
 * `python.venv.name` = "venv"
-: Raises an error if the interpreter or the virtual environment directory does not exist
+
+Raises an error if the interpreter executable or the virtual environment folder does not exist.
 
 ## Configuration
 
@@ -98,4 +96,4 @@ The workspace file should be stored in `[project directory]/.yawn/workspace.lua`
 
 ## In the foreseeable future
 
-- [] NTFS support
+- [ ] NTFS support
