@@ -1,6 +1,5 @@
 local yawn = {
 	workspace = require("yawn.workspace"),
-	filesystem = require("yawn.filesystem"),
 }
 
 local Path = require("plenary.path")
